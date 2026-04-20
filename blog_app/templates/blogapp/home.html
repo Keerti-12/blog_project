@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Auth Blog</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <style>
+            :root {
+                --bg: #f7f4ef;
+                --ink: #161616;
+                --muted: #5f5b57;
+                --accent: #e04f1c;
+                --accent-2: #1d8c7a;
+                --card: #ffffff;
+                --line: #e5ded4;
+                --shadow: 0 18px 40px rgba(22, 22, 22, 0.15);
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                font-family: "Work Sans", "Segoe UI", sans-serif;
+                color: var(--ink);
+                background: radial-gradient(1000px 600px at 10% -10%, #fbe7d2, transparent 60%),
+                    radial-gradient(900px 500px at 100% 10%, #d7efe8, transparent 55%),
+                    var(--bg);
+                min-height: 100vh;
+            }
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+
+            .page {
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 32px 20px 80px;
+            }
+
+            .nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 16px 0 24px;
+            }
+
+            .brand {
+                font-family: "Fraunces", serif;
+                font-size: clamp(22px, 3vw, 30px);
+                letter-spacing: 0.02em;
+            }
+
+            .nav-actions {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .chip {
+                border: 1px solid var(--line);
+                border-radius: 999px;
+                padding: 8px 14px;
+                font-size: 14px;
+                color: var(--muted);
+                background: rgba(255, 255, 255, 0.7);
+                backdrop-filter: blur(6px);
+            }
+
+            .hero {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 360px);
+                gap: 28px;
+                align-items: center;
+                margin-top: 10px;
+                padding: 26px 0 40px;
+            }
+
+            .hero-title {
+                font-family: "Fraunces", serif;
+                font-size: clamp(34px, 5vw, 54px);
+                margin: 0 0 12px;
+            }
+
+            .hero-sub {
+                margin: 0 0 20px;
+                color: var(--muted);
+                font-size: 16px;
+                line-height: 1.6;
+            }
+
+            .cta-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 10px 18px;
+                border-radius: 999px;
+                font-weight: 600;
+                font-size: 14px;
+                border: 1px solid transparent;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .btn-primary {
+                background: var(--accent);
+                color: #fff;
+                box-shadow: 0 10px 20px rgba(224, 79, 28, 0.25);
+            }
+
+            .btn-ghost {
+                border-color: var(--line);
+                background: rgba(255, 255, 255, 0.7);
+            }
+
+            .btn:hover {
+                transform: translateY(-2px);
+            }
+
+            .hero-card {
+                background: var(--card);
+                border-radius: 24px;
+                padding: 20px;
+                box-shadow: var(--shadow);
+                border: 1px solid rgba(0, 0, 0, 0.04);
+            }
+
+            .hero-card h3 {
+                margin: 0 0 10px;
+                font-size: 18px;
+            }
+
+            .hero-card p {
+                margin: 0;
+                color: var(--muted);
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            .section-title {
+                margin: 10px 0 18px;
+                font-family: "Fraunces", serif;
+                font-size: 22px;
+            }
+
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 22px;
+            }
+
+            .post-card {
+                background: var(--card);
+                border-radius: 22px;
+                padding: 18px;
+                border: 1px solid var(--line);
+                display: grid;
+                gap: 12px;
+                animation: float-in 0.6s ease both;
+            }
+
+            .post-card:nth-child(odd) {
+                transform-origin: top left;
+            }
+
+            .post-media {
+                border-radius: 18px;
+                overflow: hidden;
+                background: #f3efe8;
+                aspect-ratio: 4 / 3;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .post-media img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .post-title {
+                font-size: 18px;
+                margin: 0;
+            }
+
+            .post-excerpt {
+                margin: 0;
+                color: var(--muted);
+                line-height: 1.6;
+                font-size: 14px;
+            }
+
+            .post-meta {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 13px;
+                color: var(--muted);
+            }
+
+            .post-author {
+                font-weight: 600;
+                color: var(--ink);
+            }
+
+            .tag {
+                background: #eef7f4;
+                color: var(--accent-2);
+                border-radius: 999px;
+                padding: 4px 10px;
+                font-size: 12px;
+            }
+
+            .empty-state {
+                background: var(--card);
+                border-radius: 24px;
+                padding: 32px;
+                border: 1px dashed var(--line);
+                text-align: center;
+                color: var(--muted);
+            }
+
+            .fade-up {
+                animation: fade-up 0.7s ease both;
+            }
+
+            @keyframes fade-up {
+                from {
+                    opacity: 0;
+                    transform: translateY(18px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes float-in {
+                from {
+                    opacity: 0;
+                    transform: translateY(16px) scale(0.98);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+
+            @media (max-width: 840px) {
+                .hero {
+                    grid-template-columns: 1fr;
+                }
+                .nav {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 12px;
+                }
+                .nav-actions {
+                    flex-wrap: wrap;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="page">
+            <nav class="nav">
+                <div class="brand">Auth Blog</div>
+                <div class="nav-actions">
+                    {% if user.is_authenticated %}
+                        <span class="chip">Welcome, {{ user.username }}</span>
+                        <a href="{% url 'create_post' %}" class="btn btn-primary">Create New Post</a>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-ghost">Logout</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-ghost">Login</a>
+                        <a href="{% url 'signup' %}" class="btn btn-primary">Signup</a>
+                    {% endif %}
+                </div>
+            </nav>
+
+            <section class="hero fade-up">
+                <div>
+                    <h1 class="hero-title">Stories, lessons, and quiet breakthroughs.</h1>
+                    <p class="hero-sub">
+                        A space for focused writing, personal updates, and practical ideas. Browse
+                        the latest posts or share something new today.
+                    </p>
+                    <div class="cta-row">
+                        <a href="#latest" class="btn btn-primary">Explore latest posts</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'create_post' %}" class="btn btn-ghost">Draft a post</a>
+                        {% else %}
+                            <a href="{% url 'signup' %}" class="btn btn-ghost">Start writing</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="hero-card">
+                    <h3>Weekly spotlight</h3>
+                    <p>Curated highlights from the community. New picks every Monday.</p>
+                </div>
+            </section>
+
+            <h2 id="latest" class="section-title">Latest posts</h2>
+
+            {% if posts %}
+                <section class="grid">
+                    {% for post in posts %}
+                        <article class="post-card">
+                            <div class="post-media">
+                                {% if post.image %}
+                                    <img src="{{ post.image.url }}" alt="Post Image">
+                                {% else %}
+                                    <span class="tag">No image</span>
+                                {% endif %}
+                            </div>
+                            <h3 class="post-title">{{ post.title | truncatewords:10 }}</h3>
+                            <p class="post-excerpt">{{ post.content | truncatewords:20 }}</p>
+                            <div class="post-meta">
+                                <span class="post-author">{{ post.author.username }}</span>
+                                <span>
+                                    {% if post.is_draft %}
+                                        <span class="tag">Draft</span>
+                                    {% endif %}
+                                    {{ post.created_at }}
+                                </span>
+                            </div>
+                            <a href="{% url 'post_detail' post.id %}" class="btn btn-ghost">Read more</a>
+                        </article>
+                    {% endfor %}
+                </section>
+            {% else %}
+                <div class="empty-state">
+                    No posts yet. Be the first to share something thoughtful.
+                </div>
+            {% endif %}
+        </div>
+    </body>
+</html>
+
+
